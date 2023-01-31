@@ -10944,3 +10944,7 @@ a.text-dark:focus {
   cursor: pointer;
 }
 
+.form-control.errors {
+  border: 1px solid red;
+}
+

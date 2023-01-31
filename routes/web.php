@@ -20,3 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/page_1', 'HomeController@page_1')->name('page_1');
+Route::get('/page_2', 'HomeController@page_2')->name('page_2');
+
+// Route::post('/comments/{url}', 'CommentController@store');
+Route::get('/comments/{url}', 'CommentController@page');
+
+Route::resources([
+    'comments' => 'CommentController'
+]);
