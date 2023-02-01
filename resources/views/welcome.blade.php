@@ -3,5 +3,5 @@
 @section('content')
     {{-- <example-component></example-component> --}}
     <password-input></password-input>
-    <comment-component></comment-component>
+    <comments-component></comments-component>
 @endsection

@@ -37,8 +37,11 @@ class CommentRepository implements CommentInterface
 
     public function getByPageUrl($url)
     {
-        return $this->comment::where('url', $url)->orderBy('created_at', 'desc')
-                            ->get();
+        return $this->comment::where('url', $url) 
+                            ->where("comment_id")
+                        
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(3);
     }
 
 
@@ -63,10 +66,18 @@ class CommentRepository implements CommentInterface
         $comment->url = $input['url'];
         $comment->name = $input['name'];
         $comment->body = $input['body'];
+        // Si le commment_id existe
+        if (isset($input['comment_id'])) {
+            $comment->comment_id = $input['comment_id'];
+        }
+        
 
-        $comment->save();
+       $comment->save();
 
-        return $comment;
+        return $comment->setRelations([]);
+
+
+        // return $comment;
 
     }
 
