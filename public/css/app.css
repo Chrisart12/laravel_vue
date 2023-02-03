@@ -10952,3 +10952,15 @@ a.text-dark:focus {
   background-color: aqua;
 }
 
+.curseur-pointer {
+  cursor: pointer;
+}
+
+.display_flex_x_s_b {
+  display: flex;
+}
+
+.svg_width {
+  transform: scale(0.5);
+}
+

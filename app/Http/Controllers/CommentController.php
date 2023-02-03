@@ -26,9 +26,6 @@ class CommentController extends Controller
         $comments = $this->commentInterface->getAll();
        
         
-        // if ($comment) {
-        //     # code...
-        // }
         return response()->json([
                 'comments' => $comments,
         ]);
@@ -136,7 +133,22 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            // $comment = $this->commentInterface->create(array_merge($request->all(), ['url' => base64_decode($url)]));
+            $comment = $this->commentInterface->update( $id, $request->all());
+
+            return response()->json([
+                'comment' => $comment,
+                'message' => 'Bien enregisté'
+            ]);
+
+        } catch (\Throwable $th) {
+
+            return response()->json([
+                'err' => $th,
+            ]);
+        }
+        
     }
 
     /**

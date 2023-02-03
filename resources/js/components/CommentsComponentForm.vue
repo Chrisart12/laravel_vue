@@ -118,7 +118,8 @@ export default {
                 .then((response) => {
                     // this.comments.unshift(response.data.comment);
                     this.$emit('newCommentForm', response.data.comment)
-                    this.comment = {};
+                    this.comment.name = "";
+                    this.comment.body = "";
                     this.errors = [];
                 })
                 .catch((err) => {

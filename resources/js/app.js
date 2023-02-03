@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('password-input', require('./components/Password-input.vue').default);
 
 Vue.component('comments-component', require('./components/CommentsComponent.vue').default);
+Vue.component('leaflet-component', require('./components/LeafletComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

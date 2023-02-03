@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Comment;
+use DB;
 
 
 class CommentRepository implements CommentInterface
@@ -42,6 +43,7 @@ class CommentRepository implements CommentInterface
                         
                             ->orderBy('created_at', 'desc')
                             ->paginate(3);
+                            // ->get();
     }
 
 
@@ -53,6 +55,11 @@ class CommentRepository implements CommentInterface
      */
     public function getById($id)
     {
+
+        return response()->json([
+            'comment' => $id,
+            'message' => 'Bien enregisté'
+        ]);
         $this->comment::findOrFaill($id);
     }
 
@@ -72,9 +79,11 @@ class CommentRepository implements CommentInterface
         }
         
 
-       $comment->save();
-
-        return $comment->setRelations([]);
+        $comment->save();
+        
+        // return  $comment->load('comments');
+        return  $comment->setRelation('comments', collect());
+        // return $comment->setRelations([]);
 
 
         // return $comment;
@@ -90,7 +99,37 @@ class CommentRepository implements CommentInterface
     {
         $comment = new Comment();
 
-        return $this->save($comment, $input);
+        $response = $this->save($comment, $input);
+
+        // $test = Comment::findOrFail($response->id);
+
+        // return $response;
+        return $response->toArray();
+
+    }
+
+    /**
+     * @param mixed $request
+     * 
+     * @return [type]
+     */
+    public function saveBody(Comment $comment, Array $input)
+    {
+
+
+        DB::table('comments')
+            ->where('id', 3)
+            ->update(['title' => "Updated Title"]);
+        $comment->body = $input['body'];
+        
+        $comment->save();
+        
+        return  $comment;
+        return  $comment->setRelation('comments', collect());
+        // return $comment->setRelations([]);
+
+
+        // return $comment;
 
     }
 
@@ -101,9 +140,21 @@ class CommentRepository implements CommentInterface
      */
     public function update($id, Array $input)
     {
-        $comment = $this->getById($id);
 
-        return $this->save($comment, $input);
+        // return response()->json([
+        //     'comment' => $id,
+        //     'message' => $input['body']
+        // ]);
+
+        // $comment = $this->getById($id);
+
+
+
+        // return $this->save($comment, $input);
+
+        return DB::table('comments')
+                ->where('id', $id)
+                ->update(['body' => $input['body']]);
 
     }
 }

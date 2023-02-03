@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/test', 'TestController@index')->name('test');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/page_1', 'HomeController@page_1')->name('page_1');
@@ -30,3 +32,5 @@ Route::get('/comments/{url}', 'CommentController@page');
 Route::resources([
     'comments' => 'CommentController'
 ]);
+
+Route::get('/leaflet', 'LeafletController@index')->name('leaflet');
